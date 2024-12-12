@@ -80,6 +80,10 @@ void sTune::Configure(const float inputSpan, const float outputSpan, float outpu
   tangent.begin(_bufferSize);
 }
 
+void sTune::SetDeadTime(float deadtime) {
+    _deadtime = deadtime;
+}
+
 uint8_t sTune::Run() {
 
   uint32_t usNow = micros();
@@ -157,6 +161,16 @@ uint8_t sTune::Run() {
               slopeIp = pvTangent;
             }
             ipCount++;
+
+            // Handle deadtime by skipping the initial deadtime period
+            if (us < _deadtime * 1000000) {
+                Serial.print(F("Waiting for deadtime to finish. Current Temperature: "));
+                Serial.println(pvInst);
+                sampleCount++;
+                _tunerStatus = sample;
+                return sample;
+            }
+
             if ((_action == directIP || _action == reverseIP) && (ipCount == ((uint16_t)(_samples / 16)))) { // reached inflection point
               sampleCount = _samples;
               ipUs = us;

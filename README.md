@@ -2,6 +2,13 @@
 
 This is an open loop PID autotuner using a novel s-curve inflection point test method. Tuning parameters are typically determined in about ½Tau on a first-order system with time delay. Full 5Tau testing and multiple serial output options are provided. See [**WiKi**](https://github.com/Dlloydev/sTune/wiki) for test results and more.
 
+### Fork Changes
+
+Added the `SetDeadTime()` method to allow skipping the Dead Time if your system experiences a startup lag. 
+For example, if your oven starts at room temperature, but the temperature begins to increase only after a few seconds or minutes due to the delay in heating the thermal mass inside. 
+To exclude this period from autotune calculations, use `tuner.SetDeadTime(20.0);` // Set dead time for the tuner if the dead time period is 20 seconds 
+(In my experience, excluding the dead time from the autotune calculations significantly enhanced the results.)
+
 ### Inflection Point Tuning Method
 
 This open-loop tuning method is used when the controller action is set to `directIP` or `reverseIP`. This method works best on processes that respond with an S-shaped reaction curve to a stepped output. Being an open-loop test, there is no setpoint and PID correction involved. The process gain, dead time, time constant and more is determined by doing a shortened step test that ends just after the [inflection point](http://en.wikipedia.org/wiki/Inflection_point) has been reached. From here, the apparent maximum PV (input) is mathematically determined and the  controller's tuning parameters are calculated. Test duration is typically only ½Tau.

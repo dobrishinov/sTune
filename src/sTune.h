@@ -32,6 +32,7 @@ class sTune {  // Inflection Point Autotuner
     void SetControllerAction(Action Action);
     void SetSerialMode(SerialMode SerialMode);
     void SetTuningMethod(TuningMethod TuningMethod);
+    void SetDeadTime(float deadtime);
 
     // Query functions
     float GetKp();                  // proportional gain
@@ -58,11 +59,12 @@ class sTune {  // Inflection Point Autotuner
     float  _inputSpan, _outputSpan, _outputStart, _outputStep;
     float eStop, pvInst, pvAvg, pvIp, pvMax, pvPk, pvInstRes, pvAvgRes, slopeIp, pvTangent, pvTangentPrev = 0, pvStart;
     float _kp, _ki, _kd, _Ku, _Tu, _td, _R, _Ko;
-
+	float _deadtime;
+	
     uint16_t _bufferSize, _samples, sampleCount = 0, pvPkCount = 0, ipCount = 0, plotCount = 0, eStopAbort = 0;
     uint32_t _settleTimeSec, _testTimeSec, usPrev = 0, settlePrev = 0, usStart, us, ipUs;
 
     const float kexp = 4.3004; // (1 / exp(-1)) / (1 - exp(-1))
-    const float epsilon = 0.0001f;
+    const float epsilon = 0.0001f; 
 };
 #endif
