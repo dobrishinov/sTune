@@ -65,6 +65,6 @@ class sTune {  // Inflection Point Autotuner
     uint32_t _settleTimeSec, _testTimeSec, usPrev = 0, settlePrev = 0, usStart, us, ipUs;
 
     const float kexp = 4.3004; // (1 / exp(-1)) / (1 - exp(-1))
-    const float epsilon = 0.0001f; 
+    const float epsilon = 0.0001f;
 };
 #endif

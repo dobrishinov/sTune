@@ -2,7 +2,7 @@
 
 This is an open loop PID autotuner using a novel s-curve inflection point test method. Tuning parameters are typically determined in about ½Tau on a first-order system with time delay. Full 5Tau testing and multiple serial output options are provided. See [**WiKi**](https://github.com/Dlloydev/sTune/wiki) for test results and more.
 
-### Fork Changes
+## Fork Changes
 
 Added the `SetDeadTime()` method to allow skipping the Dead Time if your system experiences a startup lag. 
 For example, if your oven starts at room temperature, but the temperature begins to increase only after a few seconds or minutes due to the delay in heating the thermal mass inside. 
